@@ -1,0 +1,62 @@
+site_name: Kirill Semkin's blog
+
+nav:
+  - index.md
+
+theme:
+  name: material
+  icon:
+    logo: material/script-text
+
+plugins:
+  - blog:
+      blog_dir: .
+      archive: false
+      categories: false
+  - plotly
+
+markdown_extensions:
+  # math
+  - pymdownx.arithmatex:
+      generic: true
+  # admonition
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  # code blocks
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  # plotly
+  - pymdownx.superfences:
+      custom_fences:
+        - name: plotly
+          class: mkdocs-plotly
+          format: !!python/name:mkdocs_plotly_plugin.fences.fence_plotly
+
+extra:
+  social:
+    - icon: fontawesome/brands/x-twitter
+      link: https://x.com/sem_k32
+      name: Twitter account
+    - icon: fontawesome/brands/telegram
+      link: https://t.me/sem_k32
+      name: Telegram account
+    - icon: fontawesome/solid/envelope
+      link: mailto:semkin.ki32@gmail.com
+      name: Email
+
+extra_javascript:
+  # math
+  - javascripts/katex.js
+  - https://unpkg.com/katex@0/dist/katex.min.js
+  - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
+  # for plotly-latex
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_SVG
+
+extra_css:
+  # math
+  - https://unpkg.com/katex@0/dist/katex.min.css
