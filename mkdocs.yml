@@ -1,4 +1,5 @@
 site_name: Kirill Semkin's blog
+repo_url: https://github.com/sem-k32/semk-blog
 
 nav:
   - index.md
