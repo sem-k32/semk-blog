@@ -142,3 +142,5 @@ and again we would come up with some regularisation of the inital loss.
 ## Conclusion
 
 The issue of unbalanced classes does not exist by itself. Otherwise the balanced classes would be an issue too, wouldn't they? Any pattern in the data should be examined according to some expectations and prior knowledge of the field you're analyzing or anything else connected to the process of obtaining original data. Only then will the incorporation of associated techniques be justified and productive.
+
+The notebook for the article is available at [![Python](https://img.shields.io/badge/Github-8A2BE2?logo=github)](https://github.com/sem-k32/semk-blog/blob/master/docs/posts/unbalanced_classes/unbalanced_classes.ipynb).
