@@ -16,8 +16,11 @@ plugins:
       categories: false
   - social
   - plotly
+  - mkdocs-pdf
 
 markdown_extensions:
+  # for embedded pdf 
+  - attr_list
   # math
   - pymdownx.arithmatex:
       generic: true
