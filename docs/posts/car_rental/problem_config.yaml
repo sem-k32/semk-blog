@@ -1,0 +1,11 @@
+max_cars_moved: 5
+max_cars_location: 20
+ret:
+  - 3.
+  - 2.
+request:
+  - 3.
+  - 4.
+gamma: 0.9
+move_price: 2
+rent_price: 10
