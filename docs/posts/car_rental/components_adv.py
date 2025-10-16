@@ -1,34 +1,21 @@
-"""Utils to get rental problem representation in terms of p(s'|s, a) and r(s, a, s')
-    and dynamic programming algorithms.
+"""Utils to get advanced rental problem representation in terms 
+    of p(s'|s, a) and r(s, a, s').
 """
 from itertools import product
-# lib for functional programming
 from pipe import select
 from omegaconf import DictConfig
 
 from scipy import stats
-from scipy import linalg
 import numpy as np
 
 from rich.progress import track
 
-
-def truncate_distr_probs(distr: stats.rv_discrete, max_val: int) -> np.ndarray:
-    """Truncates distribution of discrete variable to max_val. Applied here for 
-        poisson distr.
-    """
-    probs = np.array(list(
-        range(0, max_val + 1) |
-        select(distr.pmf)
-    ))
-    probs[-1] += distr.sf(max_val)
-    return probs
+from components import truncate_distr_probs
 
 
-def build_reward_prob_tensors(conf: DictConfig) -> tuple:
-    """Constructs p(s'|s, a) and averaged r(s, a, s') for rental problem.
-        We add dummy state to state space to be redirected to for
-        incorrect or pointless (s, a) pairs.
+def build_reward_prob_tensors_adv(conf: DictConfig) -> tuple:
+    """Constructs p(s'|s, a) and averaged r(s, a, s') for advanced
+        rental problem.
 
     Args:
         conf (DictConfig): rental problem config
@@ -66,10 +53,19 @@ def build_reward_prob_tensors(conf: DictConfig) -> tuple:
                 (n1 + cars_moved > conf.max_cars_location):
                 continue
 
+            # indicator variable for free car transport from 0 to 1
+            free_move = 1 if cars_moved > 0 else 0
+
             act_indx = act_to_indx[cars_moved]
             # num of cars at the start of the day
             n0_start = n0 - cars_moved
             n1_start = n1 + cars_moved
+            # compute additional costs due to limited parking space
+            add_cost = 0.
+            if n0_start > 10:
+                add_cost += 4.
+            if n1_start > 10:
+                add_cost += 4.
             # probabilities for possible requests
             prob_req0 = truncate_distr_probs(stats.poisson(conf.request[0]), n0_start)
             prob_req1 = truncate_distr_probs(stats.poisson(conf.request[1]), n1_start)
@@ -90,7 +86,8 @@ def build_reward_prob_tensors(conf: DictConfig) -> tuple:
                 prob_ret = np.outer(prob_ret0, prob_ret1)
                 # reward for current realization
                 reward = (req0 + req1) * conf.rent_price - \
-                                np.abs(cars_moved) * conf.move_price
+                    (np.abs(cars_moved) - free_move) * conf.move_price - \
+                    add_cost
 
                 # add a fraction to the expected reward for (s, a) = fixed
                 # and s' - varied
@@ -133,55 +130,3 @@ def build_reward_prob_tensors(conf: DictConfig) -> tuple:
                 prob_t[s, act_indx, -1] = 1.
 
     return reward_t, prob_t
-
-
-def value_iteration(
-    reward_t: np.ndarray,
-    prob_t: np.ndarray,
-    gamma: float,
-    v0: np.ndarray,
-    tol: float = 1e-3,
-    max_steps: int = 1000
-) -> np.ndarray:
-    """ Value iteration algorithm for flattened state space
-    """
-    # compute avereged over s' reward r(s, a, s')
-    reward_expect = np.einsum(
-        "iaj,iaj->ia",
-        prob_t, reward_t
-    )
-    v_prev = v0
-    for _ in track(range(max_steps), "Value Iteration"):
-        v_expect = np.einsum(
-            "iaj,j->ia",
-            prob_t, v_prev
-        )
-        v = np.max(reward_expect + gamma * v_expect, axis=-1)
-
-        delta = linalg.norm(v - v_prev, np.inf)
-        if delta < tol:
-            return v
-        v_prev = v
-
-    print("Max steps reached, current approximation error: ", delta)
-    return v
-
-
-def get_optimal_policy(
-    reward_t: np.ndarray,
-    prob_t: np.ndarray,
-    gamma: float,
-    v: np.ndarray,
-) -> np.ndarray:
-    """ Computes greedy policy from the given value function
-    """
-    reward_expect = np.einsum(
-        "iaj,iaj->ia",
-        prob_t, reward_t
-    )
-    v_expect = np.einsum(
-        "iaj,j->ia",
-        prob_t, v
-    )
-    policy = np.argmax(reward_expect + gamma * v_expect, axis=-1)
-    return policy

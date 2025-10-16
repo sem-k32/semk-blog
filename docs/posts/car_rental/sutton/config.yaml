@@ -1,3 +1,4 @@
+# config for problem's parameters
 max_cars_moved: 5
 max_cars_location: 20
 ret:
