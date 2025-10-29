@@ -1,0 +1,468 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../09/what-is-the-weather-and-can-it-be-predicted/" rel="prev"/>
+<link href="../../17/can-a-continuous-on-mathbbr-function-be-a-reverse-for-everywhere-discontinuous-function-on-the-segment/" rel="next"/>
+<link href="../../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.21" name="generator"/>
+<title>Car rental problem - Kirill Semkin's blog</title>
+<link href="../../../../assets/stylesheets/main.2a3383ac.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="https://unpkg.com/katex@0/dist/katex.min.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<meta content="website" property="og:type"/>
+<meta content="Car rental problem - Kirill Semkin's blog" property="og:title"/>
+<meta content="None" property="og:description"/>
+<meta content="./assets/images/social/posts/car_rental/car_rental.png" property="og:image"/>
+<meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="None" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Car rental problem - Kirill Semkin's blog" name="twitter:title"/>
+<meta content="None" name="twitter:description"/>
+<meta content="./assets/images/social/posts/car_rental/car_rental.png" name="twitter:image"/>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script></head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#car-rental-problem">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Kirill Semkin's blog" class="md-header__button md-logo" data-md-component="logo" href="../../../.." title="Kirill Semkin's blog">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.8 20c-.4 1.2-1.5 2-2.8 2H5c-1.7 0-3-1.3-3-3v-1h12.2c.4 1.2 1.5 2 2.8 2zM19 2c1.7 0 3 1.3 3 3v1h-2V5c0-.6-.4-1-1-1s-1 .4-1 1v13h-1c-.6 0-1-.4-1-1v-1H5V5c0-1.7 1.3-3 3-3zM8 6v2h7V6zm0 4v2h6v-2z"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Kirill Semkin's blog
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Car rental problem
+            
+          </span>
+</div>
+</div>
+</div>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/sem-k32/semk-blog" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden="">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Kirill Semkin's blog" class="md-nav__button md-logo" data-md-component="logo" href="../../../.." title="Kirill Semkin's blog">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.8 20c-.4 1.2-1.5 2-2.8 2H5c-1.7 0-3-1.3-3-3v-1h12.2c.4 1.2 1.5 2 2.8 2zM19 2c1.7 0 3 1.3 3 3v1h-2V5c0-.6-.4-1-1-1s-1 .4-1 1v13h-1c-.6 0-1-.4-1-1v-1H5V5c0-1.7 1.3-3 3-3zM8 6v2h7V6zm0 4v2h6v-2z"></path></svg>
+</a>
+    Kirill Semkin's blog
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/sem-k32/semk-blog" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<a class="md-nav__link" href="../../../..">
+<span class="md-ellipsis">
+    Welcome to the blog
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mathematical-formulation">
+<span class="md-ellipsis">
+      Mathematical formulation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-details">
+<span class="md-ellipsis">
+      Implementation details
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#results">
+<span class="md-ellipsis">
+      Results
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#advanced-problem">
+<span class="md-ellipsis">
+      Advanced problem
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#relevant-links">
+<span class="md-ellipsis">
+      Relevant links
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content md-content--post" data-md-component="content">
+<div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner md-post">
+<nav class="md-nav md-nav--primary">
+<div class="md-post__back">
+<div class="md-nav__title md-nav__container">
+<a class="md-nav__link" href="../../../..">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+<span class="md-ellipsis">
+                    Back to index
+                  </span>
+</a>
+</div>
+</div>
+<div class="md-post__authors md-typeset">
+<div class="md-profile md-post__profile">
+<span class="md-author md-author--long">
+<img alt="Kirill Semkin" src="https://avatars.githubusercontent.com/u/42578877?s=400&amp;u=ff26e03579920d7616ac2ecbe3df72a02384d105&amp;v=4"/>
+</span>
+<span class="md-profile__description">
+<strong>
+                        
+                          Kirill Semkin
+                        
+                      </strong>
+<br/>
+                      Creator
+                    </span>
+</div>
+</div>
+<ul class="md-post__meta md-nav__list">
+<li class="md-nav__item md-nav__item--section">
+<div class="md-post__title">
+<span class="md-ellipsis">
+                    Metadata
+                  </span>
+</div>
+<nav class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<div class="md-nav__link">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"></path></svg>
+<time class="md-ellipsis" datetime="2025-10-16 00:00:00+00:00">October 16, 2025</time>
+</div>
+</li>
+<li class="md-nav__item">
+<div class="md-nav__link">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"></path></svg>
+<span class="md-ellipsis">
+                            
+                              10 min read
+                            
+                          </span>
+</div>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<article class="md-content__inner md-typeset">
+<div><h1 id="car-rental-problem">Car rental problem</h1>
+<p>I'd like to present to you the problem I stumbled upon in the R. Sutton and A. Barto <a href="http://incompleteideas.net/book/the-book-2nd.html">book</a> about reinforcement learning and really liked. You manage two locations for car rental and try to maximize your profit by moving available cars around locations. It can be seen as a very close model to the real-world situation. It is also very convenient to show how to approach and solve such problems in terms of the RL.</p>
+<!-- more -->
+<p>Original text:</p>
+<div class="admonition quote">
+<p class="admonition-title">Car rental problem</p>
+<p>Jack manages two locations for a nationwide car rental company. Each day, some number of customers arrive at each location to rent cars.
+If Jack has a car available, he rents it out and is credited 10 dollars by the national company.
+If he is out of cars at that location, then the business is lost. Cars become available for
+renting the day after they are returned. To help ensure that cars are available where
+they are needed, Jack can move them between the two locations overnight, at a cost of
+2 dollars per car moved. We assume that the number of cars requested and returned at each
+location are Poisson(<span class="arithmatex">\(\lambda\)</span>) random variables. Suppose <span class="arithmatex">\(\lambda\)</span> is 3 and 4 for rental requests at the first and second locations and 3 and 2 for returns. To simplify the problem slightly, we assume that there can be no more than 20 cars at each location (any additional cars are returned to the nationwide company, and thus disappear from the problem) and a
+maximum of five cars can be moved from one location to the other in one night. We take
+the discount rate to be <span class="arithmatex">\(\gamma\)</span> = 0.9 and formulate this as a continuing finite MDP, where
+the time steps are days, the state is the number of cars at each location at the end of
+the day, and the actions are the net numbers of cars moved between the two locations
+overnight.</p>
+</div>
+<p>The notebook for the article is available at <a href=""><img alt="Python" src="https://img.shields.io/badge/Github-8A2BE2?logo=github"/></a>.</p>
+<h2 id="mathematical-formulation">Mathematical formulation</h2>
+<p>Let's rewrite the problem in RL terms. Then we will use the <em>value iteration</em> to find optimal value function <span class="arithmatex">\(V(s)\)</span> and policy <span class="arithmatex">\(\pi(s)\)</span>.</p>
+<p>Our state here is <span class="arithmatex">\(s = (n_0, n_1)\)</span> for cars at location 0 and location 1 at the end of some day. Then we take action <span class="arithmatex">\(a \in -5, \ldots, 5\)</span> and at the start of the next day we have <span class="arithmatex">\((n_0 - a, n_1 + a)\)</span>. Note that some actions are pointless or incorrect for some states, e.g. <span class="arithmatex">\(s = (2, 1)\)</span> and <span class="arithmatex">\(a = 5\)</span>. For these cases we will add a terminal dummy state with zero reward. All pointless/incorrect <span class="arithmatex">\((s, a)\)</span> pairs will transition to it with probability one.</p>
+<p>After, we have some realization of poisson rental requests <span class="arithmatex">\((\text{req}_0, \text{req}_1)\)</span> and returns <span class="arithmatex">\((\text{ret}_0, \text{ret}_1)\)</span> for each location. Note that the reasonable values for rental requests are <span class="arithmatex">\(0, \ldots, n_0 - a\)</span> and <span class="arithmatex">\(0, \ldots, n_1 + a\)</span>. That's why we can truncate poisson random variables to their maximum values. The probability of all values greater adds to the probability of the maximum value. Having the request values, the reasonable values for returns are <span class="arithmatex">\(0, \ldots, 20 - (n_0 - a - \text{req}_0)\)</span> and <span class="arithmatex">\(0, \ldots, 20 - (n_1 + a - \text{ret}_1)\)</span>. So returns are truncated as well. The final state is $s' = (n_0 - a - \text{req}_0 + \text{ret}_0, n_1 + a - \text{req}_1 + \text{ret}_1) $. To compute probability of such a transition we use independence of the requests and returns so their mutual probability is a product of individual probabilities. Overall, we can compute <span class="arithmatex">\(p(s' | s, a)\)</span> by fixing <span class="arithmatex">\((s, a)\)</span> and iterating over reasonable realizations of <span class="arithmatex">\((\text{req}_0, \text{req}_1)\)</span> and <span class="arithmatex">\((\text{ret}_0, \text{ret}_1)\)</span>, adding <span class="arithmatex">\(\mathbb{P}(\text{req}_0, \text{req}_1, \text{ret}_0, \text{ret}_1)\)</span> to corresponding <span class="arithmatex">\(s'\)</span>.</p>
+<p>Reward <span class="arithmatex">\(r(s, a, s')\)</span> here is a random variable for fixed arguments because it depends on the random requests and returns. To use it in the dynamical programming we need to average it over valid <span class="arithmatex">\((\text{req}_0, \text{req}_1, \text{ret}_0, \text{ret}_1)\)</span> for given <span class="arithmatex">\((s, a, s')\)</span>. We can do it during the same iteration when computing <span class="arithmatex">\(p(s' | s, a)\)</span>. We init <span class="arithmatex">\(r(s, a, s')\)</span> with zeros. Then, for fixed <span class="arithmatex">\((s, a)\)</span> and realization of the requests and returns the reward is uniquely determined. We multiply it with the probabilty of such realization and add to <span class="arithmatex">\(r(s, a, s')\)</span>. After all iterations we have completed <span class="arithmatex">\(p(s' | s, a)\)</span> and averaged <span class="arithmatex">\(r(s, a, s')\)</span> but unnormed. The normalization constant for averaging is exactly <span class="arithmatex">\(p(s' | s, a)\)</span>.</p>
+<p>To compute optimal value function and policy we will use value iteration algorithm which basically solves the following equation iteratively:</p>
+<div class="arithmatex">\[
+    v(s) = \max_a \sum_{s',r} p(s',r|s,a) \left[ r + \gamma v(s') \right].
+\]</div>
+<p>The optimal policy is then obtained as</p>
+<div class="arithmatex">\[
+    \pi(s) = \arg\max_a \sum_{s',r} p(s',r|s,a) \left[ r + \gamma v(s') \right].
+\]</div>
+<h2 id="implementation-details">Implementation details</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The source code is available at <a href="../../../../car_rental/components.py"><code>components.py</code></a>. Here we outline the main parts of the computations.</p>
+</div>
+<p>We init five dimensional tensors for probability and reward:</p>
+<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span>
+<span class="normal"><a href="#__codelineno-0-8">8</a></span>
+<span class="normal"><a href="#__codelineno-0-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>  <span class="n">n_actions</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">max_cars_moved</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>  <span class="c1"># dims go (n0, n1, a, n0', n1')</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>  <span class="n">reward_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>      <span class="p">[</span><span class="n">max_cars_location</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">[</span><span class="n">n_actions</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">max_cars_location</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>  <span class="p">)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>  <span class="c1"># init p(s' | s, a), dims go (n0, n1, a, n0', n1')</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>  <span class="n">prob_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a>      <span class="p">[</span><span class="n">max_cars_location</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">[</span><span class="n">n_actions</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">max_cars_location</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a>  <span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+<p>We then iterate over all starting states and actions, then over all reasonable rental requests. In the inner-most cycle the reasonable return requests are easily determined as well as their probabilities.</p>
+<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>  <span class="k">for</span> <span class="p">(</span><span class="n">n0</span><span class="p">,</span> <span class="n">n1</span><span class="p">)</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>    <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">conf</span><span class="o">.</span><span class="n">max_cars_location</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> 
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>    <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">conf</span><span class="o">.</span><span class="n">max_cars_location</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>  <span class="p">):</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a>    <span class="k">for</span> <span class="n">cars_moved</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">conf</span><span class="o">.</span><span class="n">max_cars_moved</span><span class="p">,</span> <span class="n">conf</span><span class="o">.</span><span class="n">max_cars_moved</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a>      <span class="c1"># num of cars at the start of the day</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a>      <span class="n">n0_start</span> <span class="o">=</span> <span class="n">n0</span> <span class="o">-</span> <span class="n">cars_moved</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a>      <span class="n">n1_start</span> <span class="o">=</span> <span class="n">n1</span> <span class="o">+</span> <span class="n">cars_moved</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a>      <span class="k">for</span> <span class="p">(</span><span class="n">req0</span><span class="p">,</span> <span class="n">req1</span><span class="p">)</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n0_start</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n1_start</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)):</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a>        <span class="c1"># cars left after requests</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a>        <span class="n">cars_left0</span> <span class="o">=</span> <span class="n">n0_start</span> <span class="o">-</span> <span class="n">req0</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a>        <span class="n">cars_left1</span> <span class="o">=</span> <span class="n">n1_start</span> <span class="o">-</span> <span class="n">req1</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a>        <span class="c1"># maximum number of cars that can be returned</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a>        <span class="n">max_returns0</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">max_cars_location</span> <span class="o">-</span> <span class="n">cars_left0</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15"></a>        <span class="n">max_returns1</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">max_cars_location</span> <span class="o">-</span> <span class="n">cars_left1</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16"></a>        <span class="c1"># probabilities for possible requests</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17"></a>        <span class="n">prob_req0</span> <span class="o">=</span> <span class="n">truncate_distr_probs</span><span class="p">(</span><span class="n">lambda_req_0</span><span class="p">,</span> <span class="n">n0_start</span><span class="p">)</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18"></a>        <span class="n">prob_req1</span> <span class="o">=</span> <span class="n">truncate_distr_probs</span><span class="p">(</span><span class="n">lambda_req_0</span><span class="p">,</span> <span class="n">n1_start</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+<p>We also compute probabilities of the truncated poisson variables for the retuns. Their mutual probability can be computed via <code class="language-python highlight"><span class="n">np</span><span class="o">.</span><span class="n">outer</span></code>. The reward is constant in the inner-most loop because it depends only on the action and the rental requests. Finally, we add up probaility and mean reward to all possible states we transition to under current realizations of the poisson variables.</p>
+<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span>
+<span class="normal"><a href="#__codelineno-2-16">16</a></span>
+<span class="normal"><a href="#__codelineno-2-17">17</a></span>
+<span class="normal"><a href="#__codelineno-2-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>  <span class="c1"># probabilities for possible returns</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>  <span class="n">prob_ret0</span> <span class="o">=</span> <span class="n">truncate_distr_probs</span><span class="p">(</span><span class="n">lambda_ret_0</span><span class="p">,</span> <span class="n">max_returns0</span><span class="p">)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>  <span class="n">prob_ret1</span> <span class="o">=</span> <span class="n">truncate_distr_probs</span><span class="p">(</span><span class="n">lambda_ret_1</span><span class="p">,</span> <span class="n">max_returns1</span><span class="p">)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>  <span class="c1"># compute mutual probabilites for returns</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a>  <span class="n">prob_ret</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">prob_ret0</span><span class="p">,</span> <span class="n">prob_ret1</span><span class="p">)</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a>  <span class="c1"># reward for current realization</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a>  <span class="n">reward</span> <span class="o">=</span> <span class="p">(</span><span class="n">req0</span> <span class="o">+</span> <span class="n">req1</span><span class="p">)</span> <span class="o">*</span> <span class="n">rent_price</span> <span class="o">-</span> \
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a>                  <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">cars_moved</span><span class="p">)</span> <span class="o">*</span> <span class="n">conf</span><span class="o">.</span><span class="n">move_price</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a>  <span class="c1"># add a fraction to the expected reward for (s, a) = fixed</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a>  <span class="c1"># and s' - varied</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a>  <span class="n">reward_t</span><span class="p">[</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a>      <span class="n">n0</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">act_indx</span><span class="p">,</span> <span class="n">cars_left0</span><span class="p">:,</span> <span class="n">cars_left1</span><span class="p">:</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a>  <span class="p">]</span> <span class="o">+=</span> <span class="n">reward</span> <span class="o">*</span> <span class="p">(</span><span class="n">prob_req0</span><span class="p">[</span><span class="n">req0</span><span class="p">]</span> <span class="o">*</span> <span class="n">prob_req1</span><span class="p">[</span><span class="n">req1</span><span class="p">]</span> <span class="o">*</span> <span class="n">prob_ret</span><span class="p">)</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15"></a>  <span class="c1"># add a fraction to the probability for (s, a) = fixed and s' - varied</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16"></a>  <span class="n">prob_t</span><span class="p">[</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17"></a>      <span class="n">n0</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">act_indx</span><span class="p">,</span> <span class="n">cars_left0</span><span class="p">:,</span> <span class="n">cars_left1</span><span class="p">:</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18"></a>  <span class="p">]</span> <span class="o">+=</span> <span class="n">prob_req0</span><span class="p">[</span><span class="n">req0</span><span class="p">]</span> <span class="o">*</span> <span class="n">prob_req1</span><span class="p">[</span><span class="n">req1</span><span class="p">]</span> <span class="o">*</span> <span class="n">prob_ret</span>
+</span></code></pre></div></td></tr></table></div>
+<p>After all loops we normalize average reward as was said:</p>
+<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="n">reward_t</span><span class="p">[</span><span class="n">prob_t</span> <span class="o">!=</span> <span class="mf">0.</span><span class="p">]</span> <span class="o">=</span> <span class="n">reward_t</span><span class="p">[</span><span class="n">prob_t</span> <span class="o">!=</span> <span class="mf">0.</span><span class="p">]</span> <span class="o">/</span> <span class="n">prob_t</span><span class="p">[</span><span class="n">prob_t</span> <span class="o">!=</span> <span class="mf">0.</span><span class="p">]</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="admonition question">
+<p class="admonition-title">Can we do without loops?</p>
+<p>Here we use nested loops as the most intuitive approach. We can't just use vectorized operations because these operations highly depend on the inital state, action and requests. Only in the inner-most loop we vectorize operations with returns. Can you think of a faster solution?</p>
+</div>
+<p>In the value iteration we flatten state dims so our tensors will have three dimensions <span class="arithmatex">\((s, a, s')\)</span>. It is convenient to use <code class="language-python highlight"><span class="n">np</span><span class="o">.</span><span class="n">einsum</span></code> to compute mean values over probability transition function:</p>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-4-1"><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">linalg</span>
+</span><span id="__span-4-2"><a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a href="#__codelineno-4-3" id="__codelineno-4-3" name="__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a href="#__codelineno-4-4" id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">value_iteration</span><span class="p">(</span>
+</span><span id="__span-4-5"><a href="#__codelineno-4-5" id="__codelineno-4-5" name="__codelineno-4-5"></a>    <span class="n">reward_t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+</span><span id="__span-4-6"><a href="#__codelineno-4-6" id="__codelineno-4-6" name="__codelineno-4-6"></a>    <span class="n">prob_t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+</span><span id="__span-4-7"><a href="#__codelineno-4-7" id="__codelineno-4-7" name="__codelineno-4-7"></a>    <span class="n">gamma</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+</span><span id="__span-4-8"><a href="#__codelineno-4-8" id="__codelineno-4-8" name="__codelineno-4-8"></a>    <span class="n">v0</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+</span><span id="__span-4-9"><a href="#__codelineno-4-9" id="__codelineno-4-9" name="__codelineno-4-9"></a>    <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">,</span>
+</span><span id="__span-4-10"><a href="#__codelineno-4-10" id="__codelineno-4-10" name="__codelineno-4-10"></a>    <span class="n">max_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span>
+</span><span id="__span-4-11"><a href="#__codelineno-4-11" id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span id="__span-4-12"><a href="#__codelineno-4-12" id="__codelineno-4-12" name="__codelineno-4-12"></a>    <span class="c1"># compute avereged over s' reward r(s, a, s')</span>
+</span><span id="__span-4-13"><a href="#__codelineno-4-13" id="__codelineno-4-13" name="__codelineno-4-13"></a>    <span class="n">reward_expect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span>
+</span><span id="__span-4-14"><a href="#__codelineno-4-14" id="__codelineno-4-14" name="__codelineno-4-14"></a>        <span class="s2">"iaj,iaj-&gt;ia"</span><span class="p">,</span>
+</span><span id="__span-4-15"><a href="#__codelineno-4-15" id="__codelineno-4-15" name="__codelineno-4-15"></a>        <span class="n">prob_t</span><span class="p">,</span> <span class="n">reward_t</span>
+</span><span id="__span-4-16"><a href="#__codelineno-4-16" id="__codelineno-4-16" name="__codelineno-4-16"></a>    <span class="p">)</span>
+</span><span id="__span-4-17"><a href="#__codelineno-4-17" id="__codelineno-4-17" name="__codelineno-4-17"></a>    <span class="n">v_prev</span> <span class="o">=</span> <span class="n">v0</span>
+</span><span id="__span-4-18"><a href="#__codelineno-4-18" id="__codelineno-4-18" name="__codelineno-4-18"></a>    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_steps</span><span class="p">):</span>
+</span><span id="__span-4-19"><a href="#__codelineno-4-19" id="__codelineno-4-19" name="__codelineno-4-19"></a>        <span class="n">v_expect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span>
+</span><span id="__span-4-20"><a href="#__codelineno-4-20" id="__codelineno-4-20" name="__codelineno-4-20"></a>            <span class="s2">"iaj,j-&gt;ia"</span><span class="p">,</span>
+</span><span id="__span-4-21"><a href="#__codelineno-4-21" id="__codelineno-4-21" name="__codelineno-4-21"></a>            <span class="n">prob_t</span><span class="p">,</span> <span class="n">v_prev</span>
+</span><span id="__span-4-22"><a href="#__codelineno-4-22" id="__codelineno-4-22" name="__codelineno-4-22"></a>        <span class="p">)</span>
+</span><span id="__span-4-23"><a href="#__codelineno-4-23" id="__codelineno-4-23" name="__codelineno-4-23"></a>        <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">reward_expect</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">v_expect</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-4-24"><a href="#__codelineno-4-24" id="__codelineno-4-24" name="__codelineno-4-24"></a>
+</span><span id="__span-4-25"><a href="#__codelineno-4-25" id="__codelineno-4-25" name="__codelineno-4-25"></a>        <span class="n">delta</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v</span> <span class="o">-</span> <span class="n">v_prev</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+</span><span id="__span-4-26"><a href="#__codelineno-4-26" id="__codelineno-4-26" name="__codelineno-4-26"></a>        <span class="k">if</span> <span class="n">delta</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
+</span><span id="__span-4-27"><a href="#__codelineno-4-27" id="__codelineno-4-27" name="__codelineno-4-27"></a>            <span class="k">break</span>
+</span><span id="__span-4-28"><a href="#__codelineno-4-28" id="__codelineno-4-28" name="__codelineno-4-28"></a>        <span class="n">v_prev</span> <span class="o">=</span> <span class="n">v</span>
+</span><span id="__span-4-29"><a href="#__codelineno-4-29" id="__codelineno-4-29" name="__codelineno-4-29"></a>
+</span><span id="__span-4-30"><a href="#__codelineno-4-30" id="__codelineno-4-30" name="__codelineno-4-30"></a>    <span class="k">return</span> <span class="n">v</span>
+</span></code></pre></div>
+<h2 id="results">Results</h2>
+<p>The found optimal value function and optimal policy are illustrated below. The results match with <a href="https://raw.githubusercontent.com/ShangtongZhang/reinforcement-learning-an-introduction/master/images/figure_4_2.png">book's illustrations</a>.</p>
+<div class="mkdocs-plotly" data-jsonpath="../../../../posts/car_rental/sutton/assets/value.json"></div>
+<div class="mkdocs-plotly" data-jsonpath="../../../../posts/car_rental/sutton/assets/policy.json"></div>
+<p>In the optimal policy we see the reasonable tendency to balance number of cars in the locations. Because the rental request rate in the location 1 is higher we are more willing to move cars there and less willing to move it in other direction.</p>
+<h2 id="advanced-problem">Advanced problem</h2>
+<p>The book has also modified version of the task.</p>
+<div class="admonition quote advance car rental problem">
+<p class="admonition-title">Quote</p>
+<p>One of Jack’s employees at the first location
+rides a bus home each night and lives near the second location. She is happy to shuttle
+one car to the second location for free. Each additional car still costs 2 dollars, as do all cars
+moved in the other direction. In addition, Jack has limited parking space at each location.
+If more than 10 cars are kept overnight at a location (after any moving of cars), then an
+additional cost of 4 dollars must be incurred to use a second parking lot (independent of how
+many cars are kept there).</p>
+</div>
+<p>To solve it we only need to take into account the new details when computing <span class="arithmatex">\(r(s, a, s')\)</span>. All the rest stay the same. Updated computation of the tensors is located at <a href="../../../../car_rental/components_adv.py"><code>components_adv.py</code></a>. The results are illustrated below.</p>
+<div class="mkdocs-plotly" data-jsonpath="../../../../posts/car_rental/sutton/assets/value_adv.json"></div>
+<div class="mkdocs-plotly" data-jsonpath="../../../../posts/car_rental/sutton/assets/policy_adv.json"></div>
+<p>Here we see how we adapt to the new environment. For example, we use the free ride to balance number of cars at the locations when previously it was too costly. We have also become very selective in the number of cars moved to pay for additional parking only in one location. The value function has become unlinear.</p>
+<h2 id="relevant-links">Relevant links</h2>
+<ul>
+<li><a href="http://incompleteideas.net/book/the-book-2nd.html">Sutton and Barto book's site</a></li>
+<li><a href="https://github.com/ShangtongZhang/reinforcement-learning-an-introduction/blob/master/chapter04/car_rental.py">Other problem's implementation in Python</a></li>
+</ul></div>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://x.com/sem_k32" rel="noopener" target="_blank" title="Twitter account">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M357.2 48h70.6L273.6 224.2 455 464H313L201.7 318.6 74.5 464H3.8l164.9-188.5L-5.2 48h145.6l100.5 132.9zm-24.8 373.8h39.1L119.1 88h-42z"></path></svg>
+</a>
+<a class="md-social__link" href="https://t.me/sem_k32" rel="noopener" target="_blank" title="Telegram account">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M256 8a248 248 0 1 0 0 496 248 248 0 1 0 0-496m115 168.7c-3.7 39.2-19.9 134.4-28.1 178.3-3.5 18.6-10.3 24.8-16.9 25.4-14.4 1.3-25.3-9.5-39.3-18.7-21.8-14.3-34.2-23.2-55.3-37.2-24.5-16.1-8.6-25 5.3-39.5 3.7-3.8 67.1-61.5 68.3-66.7.2-.7.3-3.1-1.2-4.4s-3.6-.8-5.1-.5c-2.2.5-37.1 23.5-104.6 69.1-9.9 6.8-18.9 10.1-26.9 9.9-8.9-.2-25.9-5-38.6-9.1-15.5-5-27.9-7.7-26.8-16.3.6-4.5 6.7-9 18.4-13.7 72.3-31.5 120.5-52.3 144.6-62.3 68.9-28.6 83.2-33.6 92.5-33.8 2.1 0 6.6.5 9.6 2.9 2 1.7 3.2 4.1 3.5 6.7.5 3.2.6 6.5.4 9.8z"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:semkin.ki32@gmail.com" rel="noopener" target="_blank" title="Email">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../../..", "features": [], "search": "../../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script src="../../../../javascripts/katex.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<span hidden="True" id="default-template-settings">{"font.color": "#2a3f5f", "paper_bgcolor": "rgba(0,0,0,0)", "plot_bgcolor": "#E5ECF6", "polar.bgcolor": "#E5ECF6", "polar.angularaxis.gridcolor": "white", "polar.angularaxis.linecolor": "white", "polar.radialaxis.gridcolor": "white", "polar.radialaxis.linecolor": "white", "ternary.bgcolor": "#E5ECF6", "ternary.aaxis.gridcolor": "white", "ternary.aaxis.linecolor": "white", "ternary.baxis.gridcolor": "white", "ternary.baxis.linecolor": "white", "ternary.caxis.gridcolor": "white", "ternary.caxis.linecolor": "white", "xaxis.gridcolor": "white", "xaxis.linecolor": "white", "xaxis.zerolinecolor": "white", "yaxis.gridcolor": "white", "yaxis.linecolor": "white", "yaxis.zerolinecolor": "white", "scene.xaxis.backgroundcolor": "#E5ECF6", "scene.xaxis.gridcolor": "white", "scene.xaxis.linecolor": "white", "scene.xaxis.zerolinecolor": "white", "scene.yaxis.backgroundcolor": "#E5ECF6", "scene.yaxis.gridcolor": "white", "scene.yaxis.linecolor": "white", "scene.yaxis.zerolinecolor": "white", "scene.zaxis.backgroundcolor": "#E5ECF6", "scene.zaxis.gridcolor": "white", "scene.zaxis.linecolor": "white", "scene.zaxis.zerolinecolor": "white", "shapedefaults.line.color": "#2a3f5f", "annotationdefaults.arrowcolor": "#2a3f5f", "geo.bgcolor": "white", "geo.landcolor": "#E5ECF6", "geo.subunitcolor": "white", "geo.lakecolor": "white", "mapbox.style": "light"}</span><span hidden="True" id="slate-template-settings">{"font.color": "#f2f5fa", "paper_bgcolor": "rgba(0,0,0,0)", "plot_bgcolor": "rgb(17,17,17)", "polar.bgcolor": "rgb(17,17,17)", "polar.angularaxis.gridcolor": "#506784", "polar.angularaxis.linecolor": "#506784", "polar.radialaxis.gridcolor": "#506784", "polar.radialaxis.linecolor": "#506784", "ternary.bgcolor": "rgb(17,17,17)", "ternary.aaxis.gridcolor": "#506784", "ternary.aaxis.linecolor": "#506784", "ternary.baxis.gridcolor": "#506784", "ternary.baxis.linecolor": "#506784", "ternary.caxis.gridcolor": "#506784", "ternary.caxis.linecolor": "#506784", "xaxis.gridcolor": "#283442", "xaxis.linecolor": "#506784", "xaxis.zerolinecolor": "#283442", "yaxis.gridcolor": "#283442", "yaxis.linecolor": "#506784", "yaxis.zerolinecolor": "#283442", "scene.xaxis.backgroundcolor": "rgb(17,17,17)", "scene.xaxis.gridcolor": "#506784", "scene.xaxis.linecolor": "#506784", "scene.xaxis.zerolinecolor": "#C8D4E3", "scene.yaxis.backgroundcolor": "rgb(17,17,17)", "scene.yaxis.gridcolor": "#506784", "scene.yaxis.linecolor": "#506784", "scene.yaxis.zerolinecolor": "#C8D4E3", "scene.zaxis.backgroundcolor": "rgb(17,17,17)", "scene.zaxis.gridcolor": "#506784", "scene.zaxis.linecolor": "#506784", "scene.zaxis.zerolinecolor": "#C8D4E3", "shapedefaults.line.color": "#f2f5fa", "annotationdefaults.arrowcolor": "#f2f5fa", "geo.bgcolor": "rgb(17,17,17)", "geo.landcolor": "rgb(17,17,17)", "geo.subunitcolor": "#506784", "geo.lakecolor": "rgb(17,17,17)", "mapbox.style": "dark"}</span><script src="../../../../assets/javascripts/mkdocs-plotly-plugin.js"></script></body>
+</html>
